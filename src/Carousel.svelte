@@ -1,6 +1,6 @@
 
 <div class="carousel">
-	<div class="slides" bind:this={siema}>
+	<div class="slides" bind:this={_siema}>
 		<slot></slot>
 	</div>
 	{#if controls}
@@ -14,6 +14,7 @@
     {#if dots}
 	<ul>
 		{#each {length: totalDots} as _, i}
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<li on:click={() => go(i*currentPerPage)} class={isDotActive(currentIndex, i) ? "active" : ""}></li>
 		{/each}
 	</ul>
@@ -96,7 +97,7 @@
 	export let rtl = false
 	let currentIndex = startIndex;
 	
-	let siema
+	let _siema
 	let controller
 	let timer
 
@@ -108,7 +109,7 @@
 	
 	onMount(() => {
 		controller = new Siema({
-			selector: siema,
+			selector: _siema,
 			perPage: typeof perPage === 'object' ? perPage : Number(perPage),
 			loop,
   			duration,
